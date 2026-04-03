@@ -1,0 +1,67 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func Addition(a, b int) int {
+	return a + b
+}
+
+func substraction(a, b int) int {
+	return a - b
+}
+
+func division(a, b int) int {
+	return a / b
+}
+
+func multiplication(a, b int) int {
+	return a * b
+}
+func main(){
+for {
+		var num1 string
+		fmt.Print("Enter First Number: ")
+		fmt.Scanln(&num1)
+
+		input1, err := strconv.Atoi(num1)
+		if err != nil {
+			fmt.Println("Want only digit")
+			continue
+		}
+
+		var num2 string
+		fmt.Print("Enter Second Number: ")
+		fmt.Scanln(&num2)
+
+		input2, err := strconv.Atoi(num2)
+		if err != nil {
+			fmt.Println("Want only digit")
+			continue
+		}
+
+		var operation string
+		fmt.Print("choose operation(add, sub, mul, div, exit)")
+		fmt.Scanln(&operation)
+
+		switch operation {
+		case "add":
+			fmt.Println("Result: ", Addition(input1, input2))
+		case "sub":
+			fmt.Println("Result: ", substraction(input1, input2))
+		case "mul":
+			fmt.Println("Result: ", multiplication(input1, input2))
+		case "div":
+			fmt.Println("Result: ", division(input1, input2))
+		case "exit":
+			fmt.Println("exiting program")
+			return
+		default:
+			fmt.Println("Invalid Operation")
+		}
+
+	}
+
+}
