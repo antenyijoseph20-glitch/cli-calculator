@@ -1,0 +1,94 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+func convertToHex(hexStr string, base int) (int64, error) {
+	dec, err := strconv.ParseInt(hexStr, base, 64)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return dec, err
+}
+
+func readInput() string {
+	reader := bufio.NewReader(os.Stdin)
+	line, _ := reader.ReadString('\n')
+	return strings.TrimSpace(line)
+}
+
+func baseToHexBin(input int64, base int) string {
+	value := strconv.FormatInt(input, base)
+	return strings.ToUpper(value)
+}
+
+func main() {
+	fmt.Println("THE BASE CONVERTER")
+	fmt.Println("Concept: Number Systems & strconv")
+
+	hex := 16
+	bin := 2
+	decBase := 10
+
+	for {
+		fmt.Print("... ")
+
+		line := readInput()
+
+		if line == "" {
+			fmt.Println("Empty input")
+			continue
+		}
+
+		parts := strings.Fields(line)
+
+		if parts[0] == "quit" {
+			fmt.Println("Goodbye")
+			break
+		}
+
+		if len(parts) != 3 || parts[0] != "convert" {
+			fmt.Println("Use: convert <value> <base>")
+			continue
+		}
+
+		value := parts[1]
+		base := parts[2]
+
+		switch base {
+
+		case "hex":
+			num, err := convertToHex(value, hex)
+			if err != nil {
+				fmt.Println("Invalid hex number")
+				continue
+			}
+			fmt.Println("Decimal =", num)
+
+		case "bin":
+			num, err := convertToHex(value, bin)
+			if err != nil {
+				fmt.Println("Invalid binary number")
+				continue
+			}
+			fmt.Println(" Decimal =", num)
+
+		case "dec":
+			num, err := convertToHex(value, decBase)
+			if err != nil {
+				fmt.Println("Invalid decimal number")
+				continue
+			}
+			fmt.Println("Binary:", baseToHexBin(num, bin))
+			fmt.Println("Hex:", baseToHexBin(num, hex))
+
+		default:
+			fmt.Println("Unknown base. Use hex, bin, or dec")
+		}
+	}
+}
